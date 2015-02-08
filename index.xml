@@ -9,17 +9,8 @@
     
     
     <copyright>Jon Young</copyright>
-    <lastBuildDate>Sat, 07 Feb 2015 20:02:17 EST</lastBuildDate>
+    <lastBuildDate>Sat, 07 Feb 2015 20:02:07 EST</lastBuildDate>
     <atom:link href="http://thejaywhy.github.io/index.xml" rel="self" type="application/rss+xml" />
-    
-    <item>
-      <title>Take the configuration out of your Vagrant file</title>
-      <link>http://thejaywhy.github.io/posts/vagrant-yaml/</link>
-      <pubDate>Sat, 07 Feb 2015 20:02:17 EST</pubDate>
-      
-      <guid>http://thejaywhy.github.io/posts/vagrant-yaml/</guid>
-      <description></description>
-    </item>
     
     <item>
       <title>January/February 2015 Reading List</title>
