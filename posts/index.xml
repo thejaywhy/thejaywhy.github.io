@@ -9,8 +9,53 @@
     
     
     <copyright>Jon Young</copyright>
-    <lastBuildDate>Sat, 31 Jan 2015 19:57:16 EST</lastBuildDate>
+    <lastBuildDate>Sat, 07 Feb 2015 20:02:17 EST</lastBuildDate>
     <atom:link href="http://thejaywhy.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Take the configuration out of your Vagrant file</title>
+      <link>http://thejaywhy.github.io/posts/vagrant-yaml/</link>
+      <pubDate>Sat, 07 Feb 2015 20:02:17 EST</pubDate>
+      
+      <guid>http://thejaywhy.github.io/posts/vagrant-yaml/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>January/February 2015 Reading List</title>
+      <link>http://thejaywhy.github.io/posts/remote-rework-win/</link>
+      <pubDate>Sat, 07 Feb 2015 20:02:07 EST</pubDate>
+      
+      <guid>http://thejaywhy.github.io/posts/remote-rework-win/</guid>
+      <description>
+
+&lt;p&gt;One of my goals for 2015 is to read 2 books a month. I made this goal towards the end of the January, so I&amp;rsquo;m pretty pleased to say I got one book done in January, and &lt;em&gt;two&lt;/em&gt; in the first seven days of February. Now I just need to finish another one to get my average back on track. I&amp;rsquo;ve been getting copies of these books from my local library. The great thing about my library is that it is a part of a system of libraries that make it easy to borrow books from any library in the area. It really expands the number of books I have at my disposal.&lt;/p&gt;
+
+&lt;h3 id=&#34;rework-remote:d60164a73e516b5e526672678dfb4449&#34;&gt;Rework &amp;amp; Remote&lt;/h3&gt;
+
+&lt;p&gt;In January I read &lt;a href=&#34;https://37signals.com/rework&#34;&gt;Rework&lt;/a&gt;, and followed it up with &lt;a href=&#34;https://37signals.com/remote&#34;&gt;Remote&lt;/a&gt;, both by the founders of &lt;a href=&#34;https://37signals.com&#34;&gt;37signals&lt;/a&gt; Both of these books are a pretty easy read, a collection of short essays more than anything. Also each essay comes with a nifty illustration. My favorite line from either book is&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&amp;ldquo;A stuffed backlog is a stale backlog&amp;rdquo;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;This really hit home for me as a Scrum Master. Our backlog is packed with stuff that we&amp;rsquo;ll get to &amp;ldquo;some day&amp;rdquo;. Using your backlog for a place to capture ideas is doing it wrong.&lt;/p&gt;
+
+&lt;p&gt;I wouldn&amp;rsquo;t say there&amp;rsquo;s anything revolutionary about either of these books, but they are a both a solid, quick read, worth your time if you work in the Tech Industry. It looks like they have a third book, &lt;a href=&#34;http://www.amazon.com/Getting-Real-Smarter-Successful-Application/dp/0578012812/ref=sr_1_1?ie=UTF8&amp;amp;qid=1423358012&amp;amp;sr=8-1&amp;amp;keywords=getting+real+37+signals&#34;&gt;Getting Real&lt;/a&gt; that I&amp;rsquo;ll probably check out.&lt;/p&gt;
+
+&lt;h3 id=&#34;how-to-win-friends-influence-people:d60164a73e516b5e526672678dfb4449&#34;&gt;How to Win Friends &amp;amp; Influence People&lt;/h3&gt;
+
+&lt;p&gt;The other book I finished in February was &lt;a href=&#34;https://www.amazon.com/How-Friends-Influence-People-Revised/dp/067142517X/ref=sr_1_5?s=books&amp;amp;ie=UTF8&amp;amp;qid=1423357609&amp;amp;sr=1-5&amp;amp;keywords=how+to+win+friends+and+influence+people&#34;&gt;How to Win Friends &amp;amp; Influence People&lt;/a&gt;. I find this book on lots of people&amp;rsquo;s &amp;ldquo;must read&amp;rdquo; lists. And I can understand why: the book is good at teaching you things you should just know. The book teaches through many, many anecdotes that lead to a single principle for each chapter.&lt;/p&gt;
+
+&lt;p&gt;I found this book helpful in changing how I communicate with others. I&amp;rsquo;ve always thought of myself as someone who lives by the Golden Rule:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&amp;ldquo;Do unto others as you would have done unto yourself.&amp;rdquo;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;But the problem is, how I like to be treated is irrelevant when talking with other people. I like my conversations to be short and to the point, and let logic prevail. That&amp;rsquo;s not really what communication is all about for most people. This book has helped me really understand that. I&amp;rsquo;ll probably need to re-read this one every few months to keep myself from sliding back to my very direct conversational style.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Resolutions for 2015</title>
