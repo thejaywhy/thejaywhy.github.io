@@ -53,7 +53,8 @@
 
     <ul class="sidebar-nav">
       <li class="sidebar-nav-item"><a href="http://localhost:1313/posts">Blog</a></li>
-      <li class="sidebar-nav-item"><a href="http://localhost:1313/about">About</a></li>
+      
+      <li class="sidebar-nav-item"><a href="http://localhost:1313/about/">About</a></li>
       
     </ul>
 
@@ -78,7 +79,7 @@
   <div class="post">
     <h1>Storing Vagrantfile configuration in a YAML file</h1>
     <br>
-    <p>Have you heard of <a href="https://www.vagrantup.com/">Vagrant</a>? It&rsquo;s a pretty awesome way to manage VMs, containers, or even cloud instances. You can use the <code>Vagrantfile</code> to set up and configure the instance, check it into git, and share! Now you can rely on everyone to have the same starting point. Makes setting up development environments a breeze. And today I&rsquo;d like to share with you something I&rsquo;ve found to make it even more powerful.</p>
+    <p>Have you heard of <a href="https://www.vagrantup.com/">Vagrant</a>? It&rsquo;s a pretty awesome way to manage VMs, containers, or even cloud instances. You can use the <code>Vagrantfile</code> to set up and configure the instance, check it into git, and share! Now you can rely on everyone to have the same starting point. Makes setting up development environments a breeze. And today I&rsquo;d like to share with you something I&rsquo;ve found to make it even easier to use.</p>
 
 <p>So when you run <code>vagrant up</code> the vagrant tool is going to take and evaluate your <code>Vagrantfile</code>. Here&rsquo;s an example <code>Vagrantfile</code> taken from the Vagrant docs:</p>
 
@@ -176,6 +177,13 @@ VM, run `vagrant status NAME`.
 </div>
 <script src="http://localhost:1313/js/highlight.pack.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
+
+<script>
+  var _gaq=[['_setAccount','UA-60216723-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
 
 <script>document.write('<script src="http://'
         + (location.host || 'localhost').split(':')[0]
