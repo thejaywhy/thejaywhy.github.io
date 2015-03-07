@@ -18,7 +18,7 @@
       <pubDate>Sat, 07 Mar 2015 12:16:19 EST</pubDate>
       
       <guid>http://randomjy.com/posts/vagrant-yaml/</guid>
-      <description>&lt;p&gt;Have you heard of &lt;a href=&#34;https://www.vagrantup.com/&#34;&gt;Vagrant&lt;/a&gt;? It&amp;rsquo;s a pretty awesome way to manage VMs, containers, or even cloud instances. You can use the &lt;code&gt;Vagrantfile&lt;/code&gt; to set up and configure the instance, check it into git, and share! Now you can rely on everyone to have the same starting point. Makes setting up development environments a breeze. And today I&amp;rsquo;d like to share with you something I&amp;rsquo;ve found to make it even easier to use.&lt;/p&gt;
+      <description>&lt;p&gt;Have you heard of &lt;a href=&#34;https://www.vagrantup.com/&#34;&gt;Vagrant&lt;/a&gt;? It&amp;rsquo;s a pretty awesome way to manage VMs, containers, or even cloud instances. You can use the &lt;code&gt;Vagrantfile&lt;/code&gt; to set up and configure the instance, check it into git, and share! Now you can rely on everyone to have the same starting point. Makes setting up development environments a breeze. And today I&amp;rsquo;d like to share with you something to make it even easier to use.&lt;/p&gt;
 
 &lt;p&gt;So when you run &lt;code&gt;vagrant up&lt;/code&gt; the vagrant tool is going to take and evaluate your &lt;code&gt;Vagrantfile&lt;/code&gt;. Here&amp;rsquo;s an example &lt;code&gt;Vagrantfile&lt;/code&gt; taken from the Vagrant docs:&lt;/p&gt;
 
@@ -30,7 +30,7 @@ Vagrant.configure(&amp;quot;2&amp;quot;) do |config|
 end
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;You can use that to spin up an Ubuntu 12.04 (Precise) 32-bit VM. It&amp;rsquo;s just that simple. Of course there are all sorts of additional options you might want to configure such as number of CPUs, memory size, or network interfaces. However, I feel that adding all of these options to the &lt;code&gt;Vagrantfile&lt;/code&gt; makes for a hard read, so I found a better way!&lt;/p&gt;
+&lt;p&gt;You can use that to spin up an Ubuntu 12.04 (Precise) 32-bit VM. It&amp;rsquo;s just that simple. Of course there are all sorts of additional options you might want to configure such as number of CPUs, memory size, or network interfaces. I feel that adding all of these options to the &lt;code&gt;Vagrantfile&lt;/code&gt; makes for a hard read, but there is a better way!&lt;/p&gt;
 
 &lt;p&gt;Turns out you can just write &lt;code&gt;ruby&lt;/code&gt; right there in the &lt;code&gt;Vagrantfile&lt;/code&gt;, and you get access to &lt;em&gt;full ruby&lt;/em&gt;. So that means you can instruct Vagrant to open other files when it evaluates the &lt;code&gt;Vagrantfile&lt;/code&gt;. This means I can add my config to another file, where it&amp;rsquo;ll be easier to manage. Here&amp;rsquo;s my new &lt;code&gt;Vagrantfile&lt;/code&gt; that reads its config from a YAML file:&lt;/p&gt;
 

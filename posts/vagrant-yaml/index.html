@@ -79,7 +79,7 @@
   <div class="post">
     <h1>Storing Vagrantfile configuration in a YAML file</h1>
     <br>
-    <p>Have you heard of <a href="https://www.vagrantup.com/">Vagrant</a>? It&rsquo;s a pretty awesome way to manage VMs, containers, or even cloud instances. You can use the <code>Vagrantfile</code> to set up and configure the instance, check it into git, and share! Now you can rely on everyone to have the same starting point. Makes setting up development environments a breeze. And today I&rsquo;d like to share with you something I&rsquo;ve found to make it even easier to use.</p>
+    <p>Have you heard of <a href="https://www.vagrantup.com/">Vagrant</a>? It&rsquo;s a pretty awesome way to manage VMs, containers, or even cloud instances. You can use the <code>Vagrantfile</code> to set up and configure the instance, check it into git, and share! Now you can rely on everyone to have the same starting point. Makes setting up development environments a breeze. And today I&rsquo;d like to share with you something to make it even easier to use.</p>
 
 <p>So when you run <code>vagrant up</code> the vagrant tool is going to take and evaluate your <code>Vagrantfile</code>. Here&rsquo;s an example <code>Vagrantfile</code> taken from the Vagrant docs:</p>
 
@@ -91,7 +91,7 @@ Vagrant.configure(&quot;2&quot;) do |config|
 end
 </code></pre>
 
-<p>You can use that to spin up an Ubuntu 12.04 (Precise) 32-bit VM. It&rsquo;s just that simple. Of course there are all sorts of additional options you might want to configure such as number of CPUs, memory size, or network interfaces. However, I feel that adding all of these options to the <code>Vagrantfile</code> makes for a hard read, so I found a better way!</p>
+<p>You can use that to spin up an Ubuntu 12.04 (Precise) 32-bit VM. It&rsquo;s just that simple. Of course there are all sorts of additional options you might want to configure such as number of CPUs, memory size, or network interfaces. I feel that adding all of these options to the <code>Vagrantfile</code> makes for a hard read, but there is a better way!</p>
 
 <p>Turns out you can just write <code>ruby</code> right there in the <code>Vagrantfile</code>, and you get access to <em>full ruby</em>. So that means you can instruct Vagrant to open other files when it evaluates the <code>Vagrantfile</code>. This means I can add my config to another file, where it&rsquo;ll be easier to manage. Here&rsquo;s my new <code>Vagrantfile</code> that reads its config from a YAML file:</p>
 
