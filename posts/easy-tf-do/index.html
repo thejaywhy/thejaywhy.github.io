@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>Terraform - that was easy! &middot; Jon Young</title>
+
+  
+  <link rel="stylesheet" href="http://randomjy.com//css/poole.css">
+  <link rel="stylesheet" href="http://randomjy.com//css/hyde.css">
+  <link rel="stylesheet" href="http://randomjy.com//css/poole-overrides.css">
+  <link rel="stylesheet" href="http://randomjy.com//css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://randomjy.com//css/hyde-x.css">
+  <link rel="stylesheet" href="http://randomjy.com//css/highlight/sunburst.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link href="/favicon.png" rel="icon">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="random_jy &middot; Jon Young" />
+
+  <meta name="description" content="A simple example for spinning up a Digital Ocean droplet using Terraform.">
+  <meta name="keywords" content="devops,terraform,automation">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+  <link href='http://fonts.googleapis.com/css?family=Raleway:400,300' rel='stylesheet' type='text/css'>
+
+  <script src="//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"></script>
+  <script>
+    WebFont.load({
+      google: {
+        families: ['Raleway']
+      }
+    });
+  </script>
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <a href="http://randomjy.com/"><h1>random_jy</h1></a>
+      <p class="lead">family man, coder, diy&#39;r</p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li class="sidebar-nav-item"><a href="http://randomjy.com//posts">Blog</a></li>
+      
+      <li class="sidebar-nav-item"><a href="/about/">About</a></li>
+      
+    </ul>
+
+    <br>
+
+      <a href="https://twitter.com/random_jyoung"><i class="fa fa-twitter-square"></i></a>&nbsp;&nbsp;
+      <a href="https://github.com/thejaywhy"><i class="fa fa-github-square"></i></a>&nbsp;&nbsp;
+      <a href="https://www.linkedin.com/in/jonryoung"><i class="fa fa-linkedin-square"></i></a>&nbsp;&nbsp;
+      
+      
+
+    <br>
+    <br>
+    <p class="footnote">powered by <a href="http://hugo.spf13.com">Hugo</a> <br/>
+    &copy; 2015 Jon Young. All rights reserved.</p>
+
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="post">
+    <h1>Terraform - that was easy!</h1>
+    <br>
+    
+
+<p>Dyn gives engineers a couple of days every quarter to work on &ldquo;off roadmap&rdquo; projects. During the most recent one, I worked on various small projects, this is one of them! I wanted to experiment with <a href="http://terraform.io">Terraform</a>, a tool for making your infrastructure declarable - treating it just like your code.</p>
+
+<p>My example was trivial, but I hope to expand on it soon. All I did was spin up a node and install NGINX. You can find the source for it <a href="https://github.com/thejaywhy/easy_tf_do">here</a>.</p>
+
+<h1 id="setup:e00c65342bed87d13765c0a31d6073e8">Setup</h1>
+
+<p>You&rsquo;ll need to set up a DigitalOcean account, if you don&rsquo;t have one, you can use my <a href="https://www.digitalocean.com/?refcode=38b47f5765f4">Referral Link</a> to get a free credit! (I get some too).</p>
+
+<p>Once you have a DO account, you&rsquo;ll need to set up a &ldquo;Personal Access Token&rdquo; (PAT) for the API. and an SSH key setup as well. See these excellent DigitalOcean tutorials for how to do that:</p>
+
+<ul>
+<li><a href="https://www.digitalocean.com/community/tutorials/how-to-use-the-digitalocean-api-v2#HowToGenerateaPersonalAccessToken">How To Use the DigitalOcean API v2</a></li>
+<li><a href="https://www.digitalocean.com/community/tutorials/how-to-use-ssh-keys-with-digitalocean-droplets">How To Use SSH Keys with DigitalOcean Droplets</a></li>
+</ul>
+
+<p>And of course, you&rsquo;ll want to install Terraform. You can use the <a href="http://www.terraform.io/downloads.html">downloads page</a> to get the appropriate package for your platform. I&rsquo;m assuming you&rsquo;re running from <em>not Windows</em> (sorry).</p>
+
+<p>My Terraform configuration assumes that the configuration variables are available via environment variables:</p>
+
+<pre><code class="language-bash">$ export TF_VAR_do_token={your_PAT}
+$ export TF_VAR_ssh_fingerprint=$(ssh-keygen -lf ~/.ssh/id_rsa.pub | awk '{print $2}')
+$ export TF_VAR_pub_key=$HOME/.ssh/do_rsa.pub
+$ export TF_VAR_pvt_key=$HOME/.ssh/do_rsa
+</code></pre>
+
+<p>Alternatively, you can pass in the variables to the terraform command line interface:</p>
+
+<pre><code class="language-bash">$ export DO_PAT={your_PAT}
+$ export SSH_FINGERPRINT=$(ssh-keygen -lf ~/.ssh/id_rsa.pub | awk '{print $2}')
+$ terraform plan \
+  -var &quot;do_token=${DO_PAT}&quot; \
+  -var &quot;pub_key=$HOME/.ssh/do_rsa.pub&quot; \
+  -var &quot;pvt_key=$HOME/.ssh/do_rsa&quot; \
+  -var &quot;ssh_fingerprint=$SSH_FINGERPRINT&quot;
+</code></pre>
+
+<h1 id="usage:e00c65342bed87d13765c0a31d6073e8">Usage</h1>
+
+<p>Now that you&rsquo;ve&rsquo; got your DO access setup and your environment configured, you&rsquo;re ready to go! Clone this repo if you haven&rsquo;t done so already:</p>
+
+<pre><code class="language-bash">$ git clone https://github.com/thejaywhy/easy_tf_do.git
+</code></pre>
+
+<p>Now to the fun part, planning out your deployment:</p>
+
+<pre><code class="language-bash">$ terraform plan
+
++ digitalocean_droplet.web
+    image:                &quot;&quot; =&gt; &quot;ubuntu-14-04-x64&quot;
+    ipv4_address:         &quot;&quot; =&gt; &quot;&lt;computed&gt;&quot;
+    ipv4_address_private: &quot;&quot; =&gt; &quot;&lt;computed&gt;&quot;
+    ipv6_address:         &quot;&quot; =&gt; &quot;&lt;computed&gt;&quot;
+    ipv6_address_private: &quot;&quot; =&gt; &quot;&lt;computed&gt;&quot;
+    locked:               &quot;&quot; =&gt; &quot;&lt;computed&gt;&quot;
+    name:                 &quot;&quot; =&gt; &quot;web-1&quot;
+    region:               &quot;&quot; =&gt; &quot;nyc3&quot;
+    size:                 &quot;&quot; =&gt; &quot;512mb&quot;
+    ssh_keys.#:           &quot;&quot; =&gt; &quot;1&quot;
+    ssh_keys.0:           &quot;&quot; =&gt; &quot;${ssh_fingerprint}&quot;
+    status:               &quot;&quot; =&gt; &quot;&lt;computed&gt;&quot;
+</code></pre>
+
+<p>Which shows you exactly what this Terraform configuration is going to do. To apply it, all you have to do is run:</p>
+
+<pre><code>$ terraform apply
+# ...bunch of output....
+Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
+
+The state of your infrastructure has been saved to the path
+below. This state is required to modify and destroy your
+infrastructure, so keep it safe. To inspect the complete state
+use the `terraform show` command.
+
+State path: terraform.tfstate
+
+Outputs:
+
+  ipv4 = &lt;droplet public ip&gt;
+</code></pre>
+
+<p>You should now be able to visit the IP address and see the standard NGINX welcome screen. Hooooray!</p>
+
+<p>
+<figure >
+    
+        <img src="/img/nginx_hooray.png" />
+    
+    
+</figure>
+</p>
+
+<h2 id="cleaning-up:e00c65342bed87d13765c0a31d6073e8">Cleaning up</h2>
+
+<p>I&rsquo;ll assume you don&rsquo;t want this super simple droplet to be eating into your wallet, you&rsquo;ll probably want to shut it down! You could use the Web UI or another API wrapper, or use Terraform, it&rsquo;ll be easy.</p>
+
+<pre><code class="language-bash">$ terraform plan -destroy
+- digitalocean_droplet.web
+$ terraform destroy
+Do you really want to destroy?
+  Terraform will delete all your managed infrastructure.
+  There is no undo. Only 'yes' will be accepted to confirm.
+
+  Enter a value: yes
+
+digitalocean_droplet.web: Refreshing state... (ID: 5364117)
+digitalocean_droplet.web: Destroying...
+digitalocean_droplet.web: Destruction complete
+
+Apply complete! Resources: 0 added, 0 changed, 1 destroyed.
+</code></pre>
+
+<p>And that&rsquo;s it! Super simple to make your infrastructure with code!</p>
+
+  </div>
+</div>
+<script src="http://randomjy.com//js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script>
+  var _gaq=[['_setAccount','UA-60216723-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
