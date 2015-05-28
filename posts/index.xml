@@ -20,7 +20,7 @@
 
 &lt;p&gt;Dyn gives engineers a couple of days every quarter to work on &amp;ldquo;off roadmap&amp;rdquo; projects. During the most recent one, I worked on various small projects, this is one of them! I wanted to experiment with &lt;a href=&#34;http://terraform.io&#34;&gt;Terraform&lt;/a&gt;, a tool for making your infrastructure declarable - treating it just like your code.&lt;/p&gt;
 
-&lt;p&gt;My example was trivial, but I hope to expand on it soon. All I did was spin up a node and install NGINX. You can find the source for it &lt;a href=&#34;https://github.com/thejaywhy/easy_tf_do&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;My example is simple, yet a great starting point; and I hope to expand on it soon. All I did was spin up a node and install NGINX. You can find the source for it &lt;a href=&#34;https://github.com/thejaywhy/easy_tf_do&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h1 id=&#34;setup:e00c65342bed87d13765c0a31d6073e8&#34;&gt;Setup&lt;/h1&gt;
 
@@ -43,7 +43,7 @@ $ export TF_VAR_pub_key=$HOME/.ssh/do_rsa.pub
 $ export TF_VAR_pvt_key=$HOME/.ssh/do_rsa
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Alternatively, you can pass in the variables to the terraform command line interface:&lt;/p&gt;
+&lt;p&gt;Alternatively, you can pass in the variables to the Terraform command line interface:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ export DO_PAT={your_PAT}
 $ export SSH_FINGERPRINT=$(ssh-keygen -lf ~/.ssh/id_rsa.pub | awk &#39;{print $2}&#39;)
@@ -130,6 +130,74 @@ Apply complete! Resources: 0 added, 0 changed, 1 destroyed.
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;And that&amp;rsquo;s it! Super simple to make your infrastructure with code!&lt;/p&gt;
+
+&lt;h1 id=&#34;infrastructure-as-code:e00c65342bed87d13765c0a31d6073e8&#34;&gt;Infrastructure as Code&lt;/h1&gt;
+
+&lt;p&gt;That was fun and all, but lets look at the actual code to see how we were able to spin up a DO droplet so easily.&lt;/p&gt;
+
+&lt;p&gt;In the file &lt;code&gt;digitalocean.tf&lt;/code&gt; we specify the variables that we&amp;rsquo;ll use throughout our system:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;variable &amp;quot;do_token&amp;quot; {}
+variable &amp;quot;pub_key&amp;quot; {}
+variable &amp;quot;pvt_key&amp;quot; {}
+variable &amp;quot;ssh_fingerprint&amp;quot; {}
+
+provider &amp;quot;digitalocean&amp;quot; {
+  token = &amp;quot;${var.do_token}&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;These variables, you may notice are the environment variables specified above in the &lt;strong&gt;Setup&lt;/strong&gt; section.&lt;/p&gt;
+
+&lt;p&gt;We&amp;rsquo;ve also specified a &lt;strong&gt;provider&lt;/strong&gt;, &lt;code&gt;&amp;quot;digitalocean&amp;quot;&lt;/code&gt;. Terraform supports many of your favorite cloud services, such as AWS, Google Compute Engine, CloudFlare, Heroku, and more.&lt;/p&gt;
+
+&lt;p&gt;One provider that is interesting is the &lt;strong&gt;Template&lt;/strong&gt; provider. It lets you specify a template as part of your configuration, and pass variables to it. Terraform will render the file on another resource so that it can be consumed later. This is a step towards managing your configuration data with Terraform.&lt;/p&gt;
+
+&lt;p&gt;The other file we have, &lt;code&gt;www.tf&lt;/code&gt;, is a bit more complicated, and where the magic really happens.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# Create a new Web droplet in the nyc2 region
+resource &amp;quot;digitalocean_droplet&amp;quot; &amp;quot;web&amp;quot; {
+    image = &amp;quot;ubuntu-14-04-x64&amp;quot;
+    name = &amp;quot;web-1&amp;quot;
+    region = &amp;quot;nyc3&amp;quot;
+    size = &amp;quot;512mb&amp;quot;
+    ssh_keys = [
+      &amp;quot;${var.ssh_fingerprint}&amp;quot;
+    ]
+
+    connection {
+      user = &amp;quot;root&amp;quot;
+      type = &amp;quot;ssh&amp;quot;
+      key_file = &amp;quot;${var.pvt_key}&amp;quot;
+      timeout = &amp;quot;2m&amp;quot;
+    }
+
+    provisioner &amp;quot;remote-exec&amp;quot; {
+      inline = [
+        &amp;quot;export PATH=$PATH:/usr/bin&amp;quot;,
+        # install nginx
+        &amp;quot;sudo apt-get update&amp;quot;,
+        &amp;quot;sudo apt-get -y install nginx&amp;quot;
+      ]
+    }
+}
+
+output &amp;quot;ipv4&amp;quot; {
+    value = &amp;quot;${digitalocean_droplet.web.ipv4_address}&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this file we define a &lt;code&gt;&amp;quot;digital_ocean&amp;quot;&lt;/code&gt; &lt;code&gt;resource&lt;/code&gt; and name it &lt;strong&gt;web&lt;/strong&gt;. Within the resource we specify what kind of droplet we want, and where it should go. There are two sub-blocks defined, &lt;code&gt;connection&lt;/code&gt; and &lt;code&gt;provisioner&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;connection&lt;/code&gt; block tells Terraform how to connect to the resource, in this case via &lt;strong&gt;ssh&lt;/strong&gt;. It also relies on the &lt;code&gt;ssh_keys&lt;/code&gt; field, which will place our public key on the node. We need the &lt;code&gt;connection&lt;/code&gt; specified before we can run our &lt;code&gt;provisioner&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;provisioner&lt;/code&gt; is a &lt;strong&gt;remote-exec&lt;/strong&gt; type, but there are several others available, including a Chef implementation that will call out to your Chef server and converge against your run lists. The &lt;strong&gt;remote-exec&lt;/strong&gt; resource is using a &lt;strong&gt;ssh&lt;/strong&gt; connection to create a remote terminal, and then run commands to install NGINX - just like you would if you had SSH&amp;rsquo;d in to the remote node.&lt;/p&gt;
+
+&lt;p&gt;There&amp;rsquo;s another block included in the file, &lt;code&gt;output&lt;/code&gt;, that I used just to print out the IPv4 address of the droplet after a Terraform run. This just makes it easier to debug for the time being. We could however later add another resource to create a DNS A record that points at the IPv4 address. Maybe next time!&lt;/p&gt;
+
+&lt;h1 id=&#34;conclusion:e00c65342bed87d13765c0a31d6073e8&#34;&gt;Conclusion&lt;/h1&gt;
+
+&lt;p&gt;Terraform has made it &lt;em&gt;super simple&lt;/em&gt; to define your infrastructure as code, so why wouldn&amp;rsquo;t you? The Terraform CLI also provides a uniform way to manage your infrastructure across multiple cloud providers. No more worry about finding the right screen from a provider&amp;rsquo;s web UI, or writing your own API clients!&lt;/p&gt;
 </description>
     </item>
     
