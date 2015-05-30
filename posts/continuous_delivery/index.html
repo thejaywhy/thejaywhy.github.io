@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>Book Report: Continuous Delivery &middot; Jon Young</title>
+
+  
+  <link rel="stylesheet" href="http://localhost:1313//css/poole.css">
+  <link rel="stylesheet" href="http://localhost:1313//css/hyde.css">
+  <link rel="stylesheet" href="http://localhost:1313//css/poole-overrides.css">
+  <link rel="stylesheet" href="http://localhost:1313//css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://localhost:1313//css/hyde-x.css">
+  <link rel="stylesheet" href="http://localhost:1313//css/highlight/sunburst.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link href="/favicon.png" rel="icon">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="random_jy &middot; Jon Young" />
+
+  <meta name="description" content="My thoughts on the book &#39;Continuous Delivery&#39;">
+  <meta name="keywords" content="">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+  <link href='http://fonts.googleapis.com/css?family=Raleway:400,300' rel='stylesheet' type='text/css'>
+
+  <script src="//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"></script>
+  <script>
+    WebFont.load({
+      google: {
+        families: ['Raleway']
+      }
+    });
+  </script>
+</head>
+<body class="theme-base-08">
+<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      
+      <a href="http://localhost:1313/"><h1>random_jy</h1></a>
+      <p class="lead">family man, coder, diy&#39;r</p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li class="sidebar-nav-item"><a href="http://localhost:1313//posts">Blog</a></li>
+      
+      <li class="sidebar-nav-item"><a href="/about/">About</a></li>
+      
+    </ul>
+
+    <br>
+
+      <a href="https://twitter.com/random_jyoung"><i class="fa fa-twitter-square"></i></a>&nbsp;&nbsp;
+      <a href="https://github.com/thejaywhy"><i class="fa fa-github-square"></i></a>&nbsp;&nbsp;
+      <a href="https://www.linkedin.com/in/jonryoung"><i class="fa fa-linkedin-square"></i></a>&nbsp;&nbsp;
+      
+      
+
+    <br>
+    <br>
+    <p class="footnote">powered by <a href="http://hugo.spf13.com">Hugo</a> <br/>
+    &copy; 2015 Jon Young. All rights reserved.</p>
+
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="post">
+    <h1>Book Report: Continuous Delivery</h1>
+    <br>
+    <p>Continuous Delivery: Reliable Software Releases Through Build, Tes, and Deployment Automation by Jez Humble and David Farley.</p>
+
+<p>This book is not a &ldquo;how to&rdquo; on building a Continuous Integration or Continuous Deployment Pipeline. Instead it gives details on why you should invest in the CD pipeline, and it&rsquo;s principles. But, the book does recommend the following order for implementing a pipeline (p. 133):</p>
+
+<ol>
+<li>Model your value stream and createa walking skelton</li>
+<li>Automate teh build and deployent process</li>
+<li>Automate uit tests and code analysis</li>
+<li>Automate acceptance tests</li>
+<li>Automate releases.</li>
+</ol>
+
+<p>Version controlled deployment scripts and configuration (see chef). Use the same deployment strategy for EVERY environment: dev, test, integration, staging, production. Exposes problem with deployment strategy BEFORE you get to production.</p>
+
+<p>Acceptance Tests should be written by developers. A seperate QA team will lead to developers ignoring Acceptance Test failures because they don&rsquo;t &ldquo;own&rdquo; them. &ldquo;The Wwhole team owns the acceptance tests&hellip; if the acceptance tests fail, the whole team dhoul stop and fixthem immediately&rdquo;.</p>
+
+<p>Acceptance Tests -&gt; Behavior Driven Testing/Development.</p>
+
+<p>-&gt; Acceptance Criteria:
+     Given &hellip;
+     When &hellip;
+     Then &hellip;
+-&gt; Test Implemntaion Layer
+     DSL
+     No reference to UI
+-&gt; Application Driver Layer
+     UI specific layer (or API)</p>
+
+<p>USE PRODUCTION APIs - don&rsquo;t build in a back door to make testing easier. That&rsquo;s dangerous and you&rsquo;ll spend extra time building and maintaining something that doesn&rsquo;t give immediate business value.</p>
+
+  </div>
+</div>
+<script src="http://localhost:1313//js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script>
+  var _gaq=[['_setAccount','UA-60216723-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+<script>document.write('<script src="http://'
+        + (location.host || 'localhost').split(':')[0]
+		+ ':1313/livereload.js?mindelay=10"></'
+        + 'script>')</script></body>
+</html>
