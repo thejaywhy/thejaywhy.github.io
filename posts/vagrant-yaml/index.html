@@ -10,13 +10,13 @@
   <title>Storing Vagrantfile configuration in a YAML file &middot; Jon Young</title>
 
   
-  <link rel="stylesheet" href="http://randomjy.com//css/poole.css">
-  <link rel="stylesheet" href="http://randomjy.com//css/hyde.css">
-  <link rel="stylesheet" href="http://randomjy.com//css/poole-overrides.css">
-  <link rel="stylesheet" href="http://randomjy.com//css/hyde-overrides.css">
-  <link rel="stylesheet" href="http://randomjy.com//css/hyde-x.css">
-  <link rel="stylesheet" href="http://randomjy.com//css/highlight/sunburst.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="http://localhost:1313//css/poole.css">
+  <link rel="stylesheet" href="http://localhost:1313//css/hyde.css">
+  <link rel="stylesheet" href="http://localhost:1313//css/poole-overrides.css">
+  <link rel="stylesheet" href="http://localhost:1313//css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://localhost:1313//css/hyde-x.css">
+  <link rel="stylesheet" href="http://localhost:1313//css/highlight/sunburst.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
 
   
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
@@ -47,12 +47,12 @@
   <div class="container sidebar-sticky">
     <div class="sidebar-about">
       
-      <a href="http://randomjy.com/"><h1>random_jy</h1></a>
+      <a href="http://localhost:1313/"><h1>random_jy</h1></a>
       <p class="lead">family man, coder, diy&#39;r</p>
     </div>
 
     <ul class="sidebar-nav">
-      <li class="sidebar-nav-item"><a href="http://randomjy.com/posts">Blog</a></li>
+      <li class="sidebar-nav-item"><a href="http://localhost:1313//posts">Blog</a></li>
       
       <li class="sidebar-nav-item"><a href="/about/">About</a></li>
       
@@ -79,7 +79,7 @@
   <div class="post">
     <h1>Storing Vagrantfile configuration in a YAML file</h1>
     <br>
-    <p>Have you heard of <a href="https://www.vagrantup.com/">Vagrant</a>? It&rsquo;s a pretty awesome way to manage VMs, containers, or even cloud instances. You can use the <code>Vagrantfile</code> to set up and configure the instance, check it into git, and share! Now you can rely on everyone to have the same starting point. Makes setting up development environments a breeze. And today I&rsquo;d like to share with you something to make it even easier to use.</p>
+    <p>Have you heard of <a href="https://www.vagrantup.com/">Vagrant</a>? It&rsquo;s a pretty awesome way to manage VMs, containers, or even cloud instances. You can use the <code>Vagrantfile</code> to set up and configure the instance, check it into git, and share! Now you can rely on everyone to have the same starting point. Makes setting up development environments a breeze. And today I&rsquo;d like to share with you something I&rsquo;ve found to make it even easier to use.</p>
 
 <p>So when you run <code>vagrant up</code> the vagrant tool is going to take and evaluate your <code>Vagrantfile</code>. Here&rsquo;s an example <code>Vagrantfile</code> taken from the Vagrant docs:</p>
 
@@ -91,7 +91,7 @@ Vagrant.configure(&quot;2&quot;) do |config|
 end
 </code></pre>
 
-<p>You can use that to spin up an Ubuntu 12.04 (Precise) 32-bit VM. It&rsquo;s just that simple. Of course there are all sorts of additional options you might want to configure such as number of CPUs, memory size, or network interfaces. I feel that adding all of these options to the <code>Vagrantfile</code> makes for a hard read, but there is a better way!</p>
+<p>You can use that to spin up an Ubuntu 12.04 (Precise) 32-bit VM. It&rsquo;s just that simple. Of course there are all sorts of additional options you might want to configure such as number of CPUs, memory size, or network interfaces. However, I feel that adding all of these options to the <code>Vagrantfile</code> makes for a hard read, so I found a better way!</p>
 
 <p>Turns out you can just write <code>ruby</code> right there in the <code>Vagrantfile</code>, and you get access to <em>full ruby</em>. So that means you can instruct Vagrant to open other files when it evaluates the <code>Vagrantfile</code>. This means I can add my config to another file, where it&rsquo;ll be easier to manage. Here&rsquo;s my new <code>Vagrantfile</code> that reads its config from a YAML file:</p>
 
@@ -175,20 +175,19 @@ VM, run `vagrant status NAME`.
 
   </div>
 </div>
-<script src="http://randomjy.com//js/highlight.pack.js"></script>
+<script src="http://localhost:1313//js/highlight.pack.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-60216723-1', 'auto');
-  ga('send', 'pageview');
-
+  var _gaq=[['_setAccount','UA-60216723-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
 </script>
 
-</body>
+<script data-no-instant>document.write('<script src="http://'
+        + (location.host || 'localhost').split(':')[0]
+		+ ':1313/livereload.js?mindelay=10"></'
+        + 'script>')</script></body>
 </html>
 
