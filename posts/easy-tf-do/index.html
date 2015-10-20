@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="http://randomjy.com//css/hyde-overrides.css">
   <link rel="stylesheet" href="http://randomjy.com//css/hyde-x.css">
   <link rel="stylesheet" href="http://randomjy.com//css/highlight/sunburst.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
 
   
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
@@ -25,8 +25,8 @@
   
   <link href="" rel="alternate" type="application/rss+xml" title="random_jy &middot; Jon Young" />
 
-  <meta name="description" content="A simple example for spinning up a Digital Ocean droplet using Terraform.">
-  <meta name="keywords" content="devops,terraform,automation">
+  <meta name="description" content="Terraform makes Infrastructure easy">
+  <meta name="keywords" content="hacker">
   
 
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
@@ -52,7 +52,7 @@
     </div>
 
     <ul class="sidebar-nav">
-      <li class="sidebar-nav-item"><a href="http://randomjy.com/posts">Blog</a></li>
+      <li class="sidebar-nav-item"><a href="http://randomjy.com//posts">Blog</a></li>
       
       <li class="sidebar-nav-item"><a href="/about/">About</a></li>
       
@@ -81,26 +81,26 @@
     <br>
     
 
-<p>Dyn gives engineers a couple of days every quarter to work on &ldquo;off roadmap&rdquo; projects. During the most recent one, I worked on various small projects, this is one of them! I wanted to experiment with <a href="http://terraform.io">Terraform</a>, a tool for making your infrastructure declarable - treating it just like your code.</p>
+<p>Dyn gives engineers a couple of days every quarter to work on “off roadmap” projects. During the most recent one, I worked on various small projects, this is one of them! I wanted to experiment with <a href="http://terraform.io/">Terraform</a>, a tool for making your infrastructure declarable - treating it just like your code.</p>
 
 <p>My example is simple, yet a great starting point; and I hope to expand on it soon. All I did was spin up a node and install NGINX. You can find the source for it <a href="https://github.com/thejaywhy/easy_tf_do">here</a>.</p>
 
 <h1 id="setup:e00c65342bed87d13765c0a31d6073e8">Setup</h1>
 
-<p>You&rsquo;ll need to set up a DigitalOcean account, if you don&rsquo;t have one, you can use my <a href="https://www.digitalocean.com/?refcode=38b47f5765f4">Referral Link</a> to get a free credit! (I get some too).</p>
+<p>You’ll need to set up a DigitalOcean account, if you don’t have one, you can use my <a href="https://www.digitalocean.com/?refcode=38b47f5765f4">Referral Link</a> to get a free credit! (I get some too).</p>
 
-<p>Once you have a DO account, you&rsquo;ll need to set up a &ldquo;Personal Access Token&rdquo; (PAT) for the API. and an SSH key setup as well. See these excellent DigitalOcean tutorials for how to do that:</p>
+<p>Once you have a DO account, you’ll need to set up a “Personal Access Token” (PAT) for the API. and an SSH key setup as well. See these excellent DigitalOcean tutorials for how to do that:</p>
 
 <ul>
 <li><a href="https://www.digitalocean.com/community/tutorials/how-to-use-the-digitalocean-api-v2#HowToGenerateaPersonalAccessToken">How To Use the DigitalOcean API v2</a></li>
 <li><a href="https://www.digitalocean.com/community/tutorials/how-to-use-ssh-keys-with-digitalocean-droplets">How To Use SSH Keys with DigitalOcean Droplets</a></li>
 </ul>
 
-<p>And of course, you&rsquo;ll want to install Terraform. You can use the <a href="http://www.terraform.io/downloads.html">downloads page</a> to get the appropriate package for your platform. I&rsquo;m assuming you&rsquo;re running from <em>not Windows</em> (sorry).</p>
+<p>And of course, you’ll want to install Terraform. You can use the <a href="http://www.terraform.io/downloads.html">downloads page</a> to get the appropriate package for your platform. I’m assuming you’re running from not Windows (sorry).</p>
 
 <p>My Terraform configuration assumes that the configuration variables are available via environment variables:</p>
 
-<pre><code class="language-bash">$ export TF_VAR_do_token={your_PAT}
+<pre><code>$ export TF_VAR_do_token={your_PAT}
 $ export TF_VAR_ssh_fingerprint=$(ssh-keygen -lf ~/.ssh/id_rsa.pub | awk '{print $2}')
 $ export TF_VAR_pub_key=$HOME/.ssh/do_rsa.pub
 $ export TF_VAR_pvt_key=$HOME/.ssh/do_rsa
@@ -108,7 +108,7 @@ $ export TF_VAR_pvt_key=$HOME/.ssh/do_rsa
 
 <p>Alternatively, you can pass in the variables to the Terraform command line interface:</p>
 
-<pre><code class="language-bash">$ export DO_PAT={your_PAT}
+<pre><code>$ export DO_PAT={your_PAT}
 $ export SSH_FINGERPRINT=$(ssh-keygen -lf ~/.ssh/id_rsa.pub | awk '{print $2}')
 $ terraform plan \
   -var &quot;do_token=${DO_PAT}&quot; \
@@ -119,14 +119,14 @@ $ terraform plan \
 
 <h1 id="usage:e00c65342bed87d13765c0a31d6073e8">Usage</h1>
 
-<p>Now that you&rsquo;ve&rsquo; got your DO access setup and your environment configured, you&rsquo;re ready to go! Clone this repo if you haven&rsquo;t done so already:</p>
+<p>Now that you’ve’ got your DO access setup and your environment configured, you’re ready to go! Clone this repo if you haven’t done so already:</p>
 
-<pre><code class="language-bash">$ git clone https://github.com/thejaywhy/easy_tf_do.git
+<pre><code>$ git clone https://github.com/thejaywhy/easy_tf_do.git
 </code></pre>
 
 <p>Now to the fun part, planning out your deployment:</p>
 
-<pre><code class="language-bash">$ terraform plan
+<pre><code>$ terraform plan
 
 + digitalocean_droplet.web
     image:                &quot;&quot; =&gt; &quot;ubuntu-14-04-x64&quot;
@@ -166,7 +166,7 @@ Outputs:
 <p>
 <figure >
     
-        <img src="/img/nginx_hooray.png" />
+        <img src="/img/nginx_hooray.png" alt="NGINX - Hoooray!" />
     
     
 </figure>
@@ -174,9 +174,9 @@ Outputs:
 
 <h2 id="cleaning-up:e00c65342bed87d13765c0a31d6073e8">Cleaning up</h2>
 
-<p>I&rsquo;ll assume you don&rsquo;t want this super simple droplet to be eating into your wallet, you&rsquo;ll probably want to shut it down! You could use the Web UI or another API wrapper, or use Terraform, it&rsquo;ll be easy.</p>
+<p>I’ll assume you don’t want this super simple droplet to be eating into your wallet, you’ll probably want to shut it down! You could use the Web UI or another API wrapper, or use Terraform, it’ll be easy.</p>
 
-<pre><code class="language-bash">$ terraform plan -destroy
+<pre><code>$ terraform plan -destroy
 - digitalocean_droplet.web
 $ terraform destroy
 Do you really want to destroy?
@@ -190,15 +190,14 @@ digitalocean_droplet.web: Destroying...
 digitalocean_droplet.web: Destruction complete
 
 Apply complete! Resources: 0 added, 0 changed, 1 destroyed.
+And that’s it! Super simple to make your infrastructure with code!
 </code></pre>
-
-<p>And that&rsquo;s it! Super simple to make your infrastructure with code!</p>
 
 <h1 id="infrastructure-as-code:e00c65342bed87d13765c0a31d6073e8">Infrastructure as Code</h1>
 
 <p>That was fun and all, but lets look at the actual code to see how we were able to spin up a DO droplet so easily.</p>
 
-<p>In the file <code>digitalocean.tf</code> we specify the variables that we&rsquo;ll use throughout our system:</p>
+<p>In the file <code>digitalocean.tf</code> we specify the variables that we’ll use throughout our system:</p>
 
 <pre><code>variable &quot;do_token&quot; {}
 variable &quot;pub_key&quot; {}
@@ -210,11 +209,11 @@ provider &quot;digitalocean&quot; {
 }
 </code></pre>
 
-<p>These variables, you may notice are the environment variables specified above in the <strong>Setup</strong> section.</p>
+<p>These variables, you may notice are the environment variables specified above in the Setup section.</p>
 
-<p>We&rsquo;ve also specified a <strong>provider</strong>, <code>&quot;digitalocean&quot;</code>. Terraform supports many of your favorite cloud services, such as AWS, Google Compute Engine, CloudFlare, Heroku, and more.</p>
+<p>We’ve also specified a provider, <code>&quot;digitalocean&quot;</code>. Terraform supports many of your favorite cloud services, such as AWS, Google Compute Engine, CloudFlare, Heroku, and more.</p>
 
-<p>One provider that is interesting is the <strong>Template</strong> provider. It lets you specify a template as part of your configuration, and pass variables to it. Terraform will render the file on another resource so that it can be consumed later. This is a step towards managing your configuration data with Terraform.</p>
+<p>One provider that is interesting is the Template provider. It lets you specify a template as part of your configuration, and pass variables to it. Terraform will render the file on another resource so that it can be consumed later. This is a step towards managing your configuration data with Terraform.</p>
 
 <p>The other file we have, <code>www.tf</code>, is a bit more complicated, and where the magic really happens.</p>
 
@@ -250,17 +249,17 @@ output &quot;ipv4&quot; {
 }
 </code></pre>
 
-<p>In this file we define a <code>&quot;digital_ocean&quot;</code> <code>resource</code> and name it <strong>web</strong>. Within the resource we specify what kind of droplet we want, and where it should go. There are two sub-blocks defined, <code>connection</code> and <code>provisioner</code>.</p>
+<p>In this file we define a <code>&quot;digital_ocean&quot;</code> <code>resource</code> and name it <code>web</code>. Within the resource we specify what kind of droplet we want, and where it should go. There are two sub-blocks defined, <code>connection</code> and <code>provisioner</code>.</p>
 
-<p>The <code>connection</code> block tells Terraform how to connect to the resource, in this case via <strong>ssh</strong>. It also relies on the <code>ssh_keys</code> field, which will place our public key on the node. We need the <code>connection</code> specified before we can run our <code>provisioner</code>.</p>
+<p>The <code>connection</code> block tells Terraform how to connect to the resource, in this case via ssh. It also relies on the <code>ssh_keys</code> field, which will place our public key on the node. We need the <code>connection</code> specified before we can run our <code>provisioner</code>.</p>
 
-<p>The <code>provisioner</code> is a <strong>remote-exec</strong> type, but there are several others available, including a Chef implementation that will call out to your Chef server and converge against your run lists. The <strong>remote-exec</strong> resource is using a <strong>ssh</strong> connection to create a remote terminal, and then run commands to install NGINX - just like you would if you had SSH&rsquo;d in to the remote node.</p>
+<p>The <code>provisioner</code> is a remote-exec type, but there are several others available, including a Chef implementation that will call out to your Chef server and converge against your run lists. The remote-exec resource is using a ssh connection to create a remote terminal, and then run commands to install NGINX - just like you would if you had SSH’d in to the remote node.</p>
 
-<p>There&rsquo;s another block included in the file, <code>output</code>, that I used just to print out the IPv4 address of the droplet after a Terraform run. This just makes it easier to debug for the time being. We could however later add another resource to create a DNS A record that points at the IPv4 address. Maybe next time!</p>
+<p>There’s another block included in the file, <code>output</code>, that I used just to print out the IPv4 address of the droplet after a Terraform run. This just makes it easier to debug for the time being. We could however later add another resource to create a DNS A record that points at the IPv4 address. Maybe next time!</p>
 
 <h1 id="conclusion:e00c65342bed87d13765c0a31d6073e8">Conclusion</h1>
 
-<p>Terraform has made it <em>super simple</em> to define your infrastructure as code, so why wouldn&rsquo;t you? The Terraform CLI also provides a uniform way to manage your infrastructure across multiple cloud providers. No more worry about finding the right screen from a provider&rsquo;s web UI, or writing your own API clients!</p>
+<p>Terraform has made it <em>super simple</em> to define your infrastructure as code, so why wouldn’t you? The Terraform CLI also provides a uniform way to manage your infrastructure across multiple cloud providers. No more worry about finding the right screen from a provider’s web UI, or writing your own API clients!</p>
 
   </div>
 </div>
@@ -268,14 +267,10 @@ output &quot;ipv4&quot; {
 <script>hljs.initHighlightingOnLoad();</script>
 
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-60216723-1', 'auto');
-  ga('send', 'pageview');
-
+  var _gaq=[['_setAccount','UA-60216723-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
 </script>
 
 </body>
